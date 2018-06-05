@@ -29,8 +29,11 @@ public class Elevator {
 
     public boolean addPerson(Person p) {
         for (int i = 0; i < 4; i++) {
-            if (passengers[i] != null) {
+            if (passengers[i] == null) {
                 passengers[i] = p;
+                p.personRect.x = 64 * i;
+                p.personRect.y = elevatorRect.y;
+                p.status = "On elevator";
                 return true;
             }
         }

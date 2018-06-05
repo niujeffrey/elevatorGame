@@ -39,4 +39,8 @@ public class Person {
     public void adjustX(int queuePosition) {
         personRect.x = 256 + (queuePosition * 64);
     }
+
+    public String toString() {
+        return status + type;
+    }
 }

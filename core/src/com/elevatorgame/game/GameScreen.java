@@ -68,21 +68,15 @@ public class GameScreen implements Screen {
         Random random = new Random();
         int randomInt = random.nextInt(3);
         Person person = new Person(randomInt);
-        switch (randomInt) {
-            case 0:
-                queue0.add(person);
-                person.adjustX(queue0.indexOf(person));
-                break;
-            case 1:
-                queue1.add(person);
-                person.adjustX(queue1.indexOf(person));
-                break;
-            case 2:
-                queue2.add(person);
-                person.adjustX(queue2.indexOf(person));
-                break;
-            default:
-                break;
+        if (person.personRect.y / 200 == 0) {
+            queue0.add(person);
+            person.adjustX(queue0.indexOf(person));
+        } else if (person.personRect.y / 200 == 1) {
+            queue1.add(person);
+            person.adjustX(queue1.indexOf(person));
+        } else if (person.personRect.y / 200 == 2) {
+            queue2.add(person);
+            person.adjustX(queue2.indexOf(person));
         }
         peopleList.add(person);
         lastSpawnTime = TimeUtils.nanoTime();
@@ -100,6 +94,28 @@ public class GameScreen implements Screen {
         }
     }
 
+    private void updatePeople() {
+        for (int i = 0; i < queue0.size(); i ++) {
+            queue0.get(i).adjustX(i);
+        }
+        for (int i = 0; i < queue1.size(); i ++) {
+            queue1.get(i).adjustX(i);
+        }
+        for (int i = 0; i < queue2.size(); i ++) {
+            queue2.get(i).adjustX(i);
+        }
+    }
+
+    private void processQueue(ArrayList<Person> queue, Elevator elevator) {
+        try {
+            Person p = queue.get(0);
+            if (elevator.addPerson(p)) {
+                queue.remove(0);
+            }
+        } catch (IndexOutOfBoundsException e) {
+        }
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -113,13 +129,13 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch, "People Served: " + peopleServed, 0, 480);
         game.font.draw(game.batch, "People Waiting: " + Integer.toString(peopleList.size), 10, 480);
         game.batch.draw(backgroundImage, 0, 0);
+        game.batch.draw(elevator.elevatorTexture, elevator.elevatorRect.x, elevator.elevatorRect.y);
         for (Person p : peopleList) {
             game.batch.draw(p.personTexture, p.personRect.x, p.personRect.y);
         }
         game.batch.draw(takeNextImage, takeNext0.x, takeNext0.y);
         game.batch.draw(takeNextImage, takeNext1.x, takeNext1.y);
         game.batch.draw(takeNextImage, takeNext2.x, takeNext2.y);
-        game.batch.draw(elevator.elevatorTexture, elevator.elevatorRect.x, elevator.elevatorRect.y);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -128,11 +144,18 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             elevator.move(-200 * Gdx.graphics.getDeltaTime());
         }
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.justTouched()) {
             int x = Gdx.input.getX();
             int y = 600 - Gdx.input.getY();
             if (elevator.elevatorRect.contains(x, y)) {
                 elevator.processClick(y);
+            } else if (takeNext0.contains(x, y) && elevator.elevatorRect.y < 200) {
+                processQueue(queue0, elevator);
+            } else if (takeNext1.contains(x, y) && elevator.elevatorRect.y >= 200 &&
+                    elevator.elevatorRect.y < 400) {
+                processQueue(queue1, elevator);
+            } else if (takeNext2.contains(x, y) && elevator.elevatorRect.y >= 400) {
+                processQueue(queue2, elevator);
             }
         }
 
@@ -141,6 +164,7 @@ public class GameScreen implements Screen {
         }
 
         clearPeople();
+        updatePeople();
     }
 
     @Override

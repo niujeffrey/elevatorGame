@@ -62,6 +62,8 @@ public class GameScreen implements Screen {
         queue0 = new ArrayList<Person>();
         queue1 = new ArrayList<Person>();
         queue2 = new ArrayList<Person>();
+
+        peopleServed = 0;
     }
 
     private void spawnPerson() {
@@ -167,6 +169,11 @@ public class GameScreen implements Screen {
 
         clearPeople();
         updatePeople();
+
+        if (queue0.size() > 9 || queue1.size() > 9 || queue2.size() > 9) {
+            game.setScreen(new GameOverScreen(game, peopleServed));
+            dispose();
+        }
     }
 
     @Override
@@ -191,5 +198,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        backgroundImage.dispose();
+        backgroundMusic.dispose();
+        takeNextImage.dispose();
     }
 }

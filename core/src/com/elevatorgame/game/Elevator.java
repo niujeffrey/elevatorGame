@@ -62,13 +62,13 @@ public class Elevator {
     }
 
     public void processClick(int x) {
-        if (0 <= x && x < 32) {
+        if (0 <= x && x < 64) {
             popPerson(0);
-        } else if (32 <= x && x < 64) {
+        } else if (64 <= x && x < 128) {
             popPerson(1);
-        } else if (64 <= x && x < 96) {
+        } else if (128 <= x && x < 192) {
             popPerson(2);
-        } else if (96 <= x && x < 128) {
+        } else if (192 <= x && x < 256) {
             popPerson(3);
         }
     }

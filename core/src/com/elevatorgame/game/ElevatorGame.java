@@ -11,11 +11,13 @@ public class ElevatorGame extends Game {
 
     SpriteBatch batch;
     BitmapFont font;
+    BitmapFont font2;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
         font = new BitmapFont();
+        font2 = new BitmapFont(Gdx.files.internal("other.fnt"));
         this.setScreen(new MainMenuScreen(this));
 	}
 

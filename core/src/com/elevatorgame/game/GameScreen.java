@@ -126,8 +126,6 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "People Served: " + peopleServed, 0, 480);
-        game.font.draw(game.batch, "People Waiting: " + Integer.toString(peopleList.size), 10, 480);
         game.batch.draw(backgroundImage, 0, 0);
         game.batch.draw(elevator.elevatorTexture, elevator.elevatorRect.x, elevator.elevatorRect.y);
         for (Person p : peopleList) {
@@ -136,6 +134,8 @@ public class GameScreen implements Screen {
         game.batch.draw(takeNextImage, takeNext0.x, takeNext0.y);
         game.batch.draw(takeNextImage, takeNext1.x, takeNext1.y);
         game.batch.draw(takeNextImage, takeNext2.x, takeNext2.y);
+        game.font2.draw(game.batch, "People Served: " + peopleServed, 5, 590);
+        game.font2.draw(game.batch, "People Waiting: " + Integer.toString(peopleList.size), 5, 570);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {

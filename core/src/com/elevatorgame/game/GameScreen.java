@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScreen implements Screen {
-
+    private static long nextSpawn = 4000000000L;
     final ElevatorGame game;
 
     Texture backgroundImage;
@@ -90,6 +90,7 @@ public class GameScreen implements Screen {
             }
         }
         for (Person p : toClear) {
+            nextSpawn -= 1000;
             peopleList.removeValue(p, true);
         }
     }
@@ -159,7 +160,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        if (TimeUtils.nanoTime() - lastSpawnTime > 9000000000L) {
+        if (TimeUtils.nanoTime() - lastSpawnTime > nextSpawn) {
             spawnPerson();
         }
 

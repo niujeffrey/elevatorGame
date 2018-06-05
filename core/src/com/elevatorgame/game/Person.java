@@ -33,7 +33,7 @@ public class Person {
     }
 
     public boolean checkLevel() {
-        return personRect.y <= (type + 1) * 200 && personRect.y >= type * 200;
+        return personRect.y + 128 <= (type + 1) * 200 && personRect.y >= type * 200;
     }
 
     public void adjustX(int queuePosition) {

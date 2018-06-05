@@ -43,11 +43,11 @@ public class GameScreen implements Screen {
         takeNext1 = new Rectangle();
         takeNext2 = new Rectangle();
         takeNext0.x = takeNext1.x = takeNext2.x = 270;
-        takeNext0.y = 160;
-        takeNext1.y = 360;
-        takeNext2.y = 560;
+        takeNext0.y = 10;
+        takeNext1.y = 210;
+        takeNext2.y = 410;
         takeNext0.width = takeNext1.width = takeNext2.width = 89;
-        takeNext0.height = takeNext1.height = takeNext2.height = 72;
+        takeNext0.height = takeNext1.height = takeNext2.height = 185;
 
 //        arrivalSound = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("mall.wav"));
@@ -129,12 +129,12 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(backgroundImage, 0, 0);
         game.batch.draw(elevator.elevatorTexture, elevator.elevatorRect.x, elevator.elevatorRect.y);
-        for (Person p : peopleList) {
-            game.batch.draw(p.personTexture, p.personRect.x, p.personRect.y);
-        }
         game.batch.draw(takeNextImage, takeNext0.x, takeNext0.y);
         game.batch.draw(takeNextImage, takeNext1.x, takeNext1.y);
         game.batch.draw(takeNextImage, takeNext2.x, takeNext2.y);
+        for (Person p : peopleList) {
+            game.batch.draw(p.personTexture, p.personRect.x, p.personRect.y);
+        }
         game.font2.draw(game.batch, "People Served: " + peopleServed, 5, 590);
         game.font2.draw(game.batch, "People Waiting: " + Integer.toString(peopleList.size), 5, 570);
         game.batch.end();
@@ -150,10 +150,10 @@ public class GameScreen implements Screen {
             int y = 600 - Gdx.input.getY();
             if (elevator.elevatorRect.contains(x, y)) {
                 elevator.processClick(x);
-            } else if (takeNext0.contains(x, y) && elevator.elevatorRect.y < 200) {
+            } else if (takeNext0.contains(x, y) && elevator.elevatorRect.y + 128 < 200) {
                 processQueue(queue0, elevator);
             } else if (takeNext1.contains(x, y) && elevator.elevatorRect.y >= 200 &&
-                    elevator.elevatorRect.y < 400) {
+                    elevator.elevatorRect.y + 128 < 400) {
                 processQueue(queue1, elevator);
             } else if (takeNext2.contains(x, y) && elevator.elevatorRect.y >= 400) {
                 processQueue(queue2, elevator);

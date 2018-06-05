@@ -26,6 +26,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.font.draw(game.batch, "Take coloured blocks to their floor", 100, 300);
         game.font.draw(game.batch, "Tap anywhere to begin", 100, 150);
         game.batch.end();
 

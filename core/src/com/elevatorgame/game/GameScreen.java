@@ -20,8 +20,9 @@ public class GameScreen implements Screen {
     final ElevatorGame game;
 
     Texture backgroundImage;
-    Texture elevatorImage;
-    Array<Texture> personImages;
+    Texture takeNextImage;
+    Rectangle takeNext0, takeNext1, takeNext2;
+
     Sound arrivalSound;
     Music backgroundMusic;
     OrthographicCamera camera;
@@ -36,6 +37,17 @@ public class GameScreen implements Screen {
     public GameScreen(final ElevatorGame game) {
         this.game = game;
         backgroundImage = new Texture(Gdx.files.internal("background.png"));
+        takeNextImage = new Texture(Gdx.files.internal("takenext.png"));
+
+        takeNext0 = new Rectangle();
+        takeNext1 = new Rectangle();
+        takeNext2 = new Rectangle();
+        takeNext0.x = takeNext1.x = takeNext2.x = 270;
+        takeNext0.y = 160;
+        takeNext1.y = 360;
+        takeNext2.y = 560;
+        takeNext0.width = takeNext1.width = takeNext2.width = 89;
+        takeNext0.height = takeNext1.height = takeNext2.height = 72;
 
 //        arrivalSound = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("mall.wav"));
@@ -104,6 +116,9 @@ public class GameScreen implements Screen {
         for (Person p : peopleList) {
             game.batch.draw(p.personTexture, p.personRect.x, p.personRect.y);
         }
+        game.batch.draw(takeNextImage, takeNext0.x, takeNext0.y);
+        game.batch.draw(takeNextImage, takeNext1.x, takeNext1.y);
+        game.batch.draw(takeNextImage, takeNext2.x, takeNext2.y);
         game.batch.draw(elevator.elevatorTexture, elevator.elevatorRect.x, elevator.elevatorRect.y);
         game.batch.end();
 

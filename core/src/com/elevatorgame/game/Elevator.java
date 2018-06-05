@@ -46,6 +46,7 @@ public class Elevator {
         if (p.checkLevel()) {
             p.status = "Arrived";
             p.personRect.y = p.type * 160;
+            GameScreen.peopleServed++;
             // TODO: Play Ding sound
         } else {
             passengers[index] = p;

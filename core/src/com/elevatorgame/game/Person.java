@@ -25,15 +25,18 @@ public class Person {
 
         this.personRect = new Rectangle();
         personRect.x = 700;
-        int level = random.nextInt(2);
+        int level = random.nextInt(3);
         while (level == type) {
-            level = random.nextInt(2);
+            level = random.nextInt(3);
         }
-        personRect.y = level * 160;
+        personRect.y = level * 200;
     }
 
     public boolean checkLevel() {
-        return personRect.y <= (type + 1) * 160 && personRect.y >= type * 160;
+        return personRect.y <= (type + 1) * 200 && personRect.y >= type * 200;
     }
 
+    public void adjustX(int queuePosition) {
+        personRect.x = 256 + (queuePosition * 64);
+    }
 }

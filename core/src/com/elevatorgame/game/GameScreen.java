@@ -12,10 +12,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScreen implements Screen {
-    private static int aaa = 0;
 
     final ElevatorGame game;
 
@@ -28,9 +28,10 @@ public class GameScreen implements Screen {
 
     Elevator elevator;
     Array<Person> peopleList;
+    ArrayList<Person> queue1, queue2, queue0;
 
     long lastSpawnTime;
-    int peopleServed;
+    static int peopleServed = 0;
 
     public GameScreen(final ElevatorGame game) {
         this.game = game;
@@ -46,12 +47,31 @@ public class GameScreen implements Screen {
         elevator = new Elevator(4);
         peopleList = new Array<Person>();
 
-        peopleServed = 0;
+        queue0 = new ArrayList<Person>();
+        queue1 = new ArrayList<Person>();
+        queue2 = new ArrayList<Person>();
     }
 
     private void spawnPerson() {
         Random random = new Random();
-        Person person = new Person(random.nextInt(2));
+        int randomInt = random.nextInt(3);
+        Person person = new Person(randomInt);
+        switch (randomInt) {
+            case 0:
+                queue0.add(person);
+                person.adjustX(queue0.indexOf(person));
+                break;
+            case 1:
+                queue1.add(person);
+                person.adjustX(queue1.indexOf(person));
+                break;
+            case 2:
+                queue2.add(person);
+                person.adjustX(queue2.indexOf(person));
+                break;
+            default:
+                break;
+        }
         peopleList.add(person);
         lastSpawnTime = TimeUtils.nanoTime();
     }
@@ -101,6 +121,9 @@ public class GameScreen implements Screen {
             }
         }
 
+        if (TimeUtils.nanoTime() - lastSpawnTime > 9000000000L) {
+            spawnPerson();
+        }
 
         clearPeople();
     }

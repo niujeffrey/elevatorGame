@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.util.ArrayList;
-
 public class Elevator {
 
     Person[] passengers;
@@ -63,14 +61,14 @@ public class Elevator {
         }
     }
 
-    public void processClick(int y) {
-        if (0 <= y && y < 32) {
+    public void processClick(int x) {
+        if (0 <= x && x < 32) {
             popPerson(0);
-        } else if (32 <= y && y < 64) {
+        } else if (32 <= x && x < 64) {
             popPerson(1);
-        } else if (64 <= y && y < 96) {
+        } else if (64 <= x && x < 96) {
             popPerson(2);
-        } else if (96 <= y && y < 128) {
+        } else if (96 <= x && x < 128) {
             popPerson(3);
         }
     }

@@ -148,7 +148,7 @@ public class GameScreen implements Screen {
             int x = Gdx.input.getX();
             int y = 600 - Gdx.input.getY();
             if (elevator.elevatorRect.contains(x, y)) {
-                elevator.processClick(y);
+                elevator.processClick(x);
             } else if (takeNext0.contains(x, y) && elevator.elevatorRect.y < 200) {
                 processQueue(queue0, elevator);
             } else if (takeNext1.contains(x, y) && elevator.elevatorRect.y >= 200 &&

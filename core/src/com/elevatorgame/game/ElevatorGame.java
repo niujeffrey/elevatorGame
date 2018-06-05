@@ -29,5 +29,7 @@ public class ElevatorGame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		font.dispose();
+		font2.dispose();
 	}
 }

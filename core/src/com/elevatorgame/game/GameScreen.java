@@ -90,7 +90,8 @@ public class GameScreen implements Screen {
             }
         }
         for (Person p : toClear) {
-            nextSpawn -= 1000;
+            double x = nextSpawn / 1.01;
+            nextSpawn = Math.round(x);
             peopleList.removeValue(p, true);
         }
     }

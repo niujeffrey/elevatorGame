@@ -55,9 +55,11 @@ public class Elevator {
     }
 
     public void move(double amount) {
-        elevatorRect.y += amount;
-        for (Person p : passengers) {
-            if (p != null) p.personRect.y += amount;
+        if (elevatorRect.y + amount >= 0 && elevatorRect.y + amount + 128 < 600) {
+            elevatorRect.y += amount;
+            for (Person p : passengers) {
+                if (p != null) p.personRect.y += amount;
+            }
         }
     }
 

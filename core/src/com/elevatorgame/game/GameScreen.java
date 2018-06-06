@@ -23,8 +23,8 @@ public class GameScreen implements Screen {
     Texture takeNextImage;
     Rectangle takeNext0, takeNext1, takeNext2;
 
-    Sound arrivalSound;
-    Music backgroundMusic;
+//    Sound arrivalSound;
+//    Music backgroundMusic;
     OrthographicCamera camera;
 
     Elevator elevator;
@@ -50,8 +50,8 @@ public class GameScreen implements Screen {
         takeNext0.height = takeNext1.height = takeNext2.height = 185;
 
 //        arrivalSound = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("mall.wav"));
-        backgroundMusic.setLooping(true);
+//        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("mall.wav"));
+//        backgroundMusic.setLooping(true);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
@@ -199,7 +199,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         backgroundImage.dispose();
-        backgroundMusic.dispose();
+//        backgroundMusic.dispose();
         takeNextImage.dispose();
     }
 }

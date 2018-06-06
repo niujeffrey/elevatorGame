@@ -26,6 +26,9 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.font.draw(game.batch, "W/Up Arrow to move elevator up\nS/down Arrow to move elevator down" +
+                "\nUse mouse to click on the next passenger\nClick on passenger in elevator to" +
+                "remove them", 400, 300);
         game.font.draw(game.batch, "Take coloured blocks to their floor", 100, 300);
         game.font.draw(game.batch, "Tap anywhere to begin", 100, 150);
         game.batch.end();
